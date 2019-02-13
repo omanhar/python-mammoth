@@ -117,7 +117,7 @@ class _DocumentConverter(documents.element_visitor(args=1)):
         if run.is_strikethrough:
             paths.append(self._find_style_for_run_property("strikethrough", default="s"))
         if run.is_underline:
-            paths.append(self._find_style_for_run_property("underline"))
+            paths.append(self._find_style_for_run_property("underline", default="u"))
         if run.vertical_alignment == documents.VerticalAlignment.subscript:
             paths.append(html_paths.element(["sub"], fresh=False))
         if run.vertical_alignment == documents.VerticalAlignment.superscript:
