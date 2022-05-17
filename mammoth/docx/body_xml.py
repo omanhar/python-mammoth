@@ -117,7 +117,7 @@ def _create_reader(numbering, content_types, relationships, styles, docx_file, f
                 is_small_caps=is_small_caps,
                 vertical_alignment=vertical_alignment,
                 font=font,
-                font_size=font_size,
+                xml_properties=properties
             ))
 
     def _read_run_style(properties):
@@ -147,6 +147,7 @@ def _create_reader(numbering, content_types, relationships, styles, docx_file, f
                 ),
                 alignment=alignment,
                 indent=indent,
+                xml_properties=properties,
             )).append_extra()
 
     def _read_paragraph_style(properties):
