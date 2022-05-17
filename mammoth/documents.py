@@ -22,6 +22,8 @@ class Paragraph(HasChildren):
     numbering = cobble.field()
     alignment = cobble.field()
     indent = cobble.field()
+    xml_properties = cobble.field()
+    html_attributes = cobble.field()
 
 
 @cobble.data
@@ -52,7 +54,8 @@ class Run(HasChildren):
     is_small_caps = cobble.field()
     vertical_alignment = cobble.field()
     font = cobble.field()
-    font_size = cobble.field()
+    xml_properties = cobble.field()
+    html_attributes = cobble.field()
 
 @cobble.data
 class Text(Element):
@@ -106,11 +109,12 @@ def document(children, notes=None, comments=None):
         comments = []
     return Document(children, notes, comments=comments)
 
-def paragraph(children, style_id=None, style_name=None, numbering=None, alignment=None, indent=None):
+def paragraph(children, style_id=None, style_name=None, numbering=None, alignment=None, indent=None, xml_properties=None, html_attributes=None):
     if indent is None:
         indent = paragraph_indent()
-
-    return Paragraph(children, style_id, style_name, numbering, alignment=alignment, indent=indent)
+    if html_attributes is None:
+        html_attributes = {}
+    return Paragraph(children, style_id, style_name, numbering, alignment=alignment, indent=indent, xml_properties=xml_properties, html_attributes=html_attributes)
 
 def paragraph_indent(start=None, end=None, first_line=None, hanging=None):
     return ParagraphIndent(start=start, end=end, first_line=first_line, hanging=hanging)
@@ -127,7 +131,8 @@ def run(
     is_small_caps=None,
     vertical_alignment=None,
     font=None,
-    font_size=None,
+    xml_properties=None,
+    html_attributes=None
 ):
     if vertical_alignment is None:
         vertical_alignment = VerticalAlignment.baseline
@@ -143,7 +148,8 @@ def run(
         is_small_caps=bool(is_small_caps),
         vertical_alignment=vertical_alignment,
         font=font,
-        font_size=font_size,
+        xml_properties=xml_properties,
+        html_attributes=html_attributes or {},
     )
 
 class VerticalAlignment(object):
